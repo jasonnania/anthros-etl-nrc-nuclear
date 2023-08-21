@@ -11,7 +11,7 @@ from anthros_etl.inserters.bcp_sql_server_table_inserter import TableInserterBCP
 logger = logging.getLogger(__name__)
 
 def get_etl_pipeline():
-    loader = TimeSeriesSpotTableDataLoader(process_name='NYISO_DAY_AHEAD_MARKET_LBMP_ETL',
+    loader = TimeSeriesSpotTableDataLoader(process_name='NRC_POWER_REACTOR_ETL',
                                            inserter=TableInserterBCPInsertSQLServer(data_dir=tempfile.gettempdir())
                                            )
     pl = base_pl + [loader]
