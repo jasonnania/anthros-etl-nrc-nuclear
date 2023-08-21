@@ -6,7 +6,7 @@ import pytz
 from anthros_etl.data_transformer import DataTransformer
 
 
-class NYISODayAheadMarketLBMPTransformer(DataTransformer):
+class NRCNuclearReactorTransformer(DataTransformer):
     
     def process_impl(self, payload: Any, params: dict) -> tuple[Any, dict]: 
         df = payload
