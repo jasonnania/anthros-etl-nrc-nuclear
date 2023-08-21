@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+
+[project]
+name = "anthros-etl-nrc-nuclear"
+description = "Anthros ETL Genscape"
+dynamic = ["version", "dependencies", "readme"]
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
+write_to = "anthros_etl_nrc_nuclear/_version.py"
