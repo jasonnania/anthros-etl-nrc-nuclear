@@ -4,6 +4,8 @@ import datetime as dt
 import pandas as pd
 import io
 import requests
+from bs4 import BeautifulSoup
+import os
 
 class SourceDataExtractor(HTTPExtractor):
     logger = logging.getLogger(__name__)
@@ -58,23 +60,61 @@ class SourceDataExtractor(HTTPExtractor):
         
         # check for successful request
         if response.status_code == 200:
-            # load the data into payload
-            payload = response.content
+            
+            payload = response.text
+            
+            # Parse the HTML content using BeautifulSoup
+            soup = BeautifulSoup(payload, 'html.parser')
+
+            # Find all tables with class 'power'
+            tables = soup.find_all('table', class_='power')
+
+            # Initialize lists to store the extracted data
+            report_dates = []
+            regions = []
+            units = []
+            powers = []
+
+            # Iterate through each table and extract data
+            for region, table in enumerate(tables, start=1):
+                table_rows = table.find_all('tr')[1:]  # Skip the header row
+                report_date = formatted_date  # Assuming this is constant for the entire table
+
+                for row in table_rows:
+                    columns = row.find_all('td')
+                    unit = columns[0].text.strip()
+                    power = columns[1].text.strip()
+
+                    report_dates.append(report_date)
+                    regions.append(region)
+                    units.append(unit)
+                    powers.append(power)
+
+            # Create a DataFrame with the extracted data
+            data = {
+                'Report Date': report_dates,
+                'Region': regions,
+                'Unit': units,
+                'Power': powers
+            }
+            df = pd.DataFrame(data)
+            
+            csv_bytes = io.BytesIO()
+            df.to_csv(csv_bytes, index=False)
+            csv_bytes.seek(0)
+            
+            payload = csv_bytes
             
             return payload, params
+            
         else:
             return "Could not download bytes content"
 
 
 if __name__ == '__main__':
     extractor = SourceDataExtractor()
-    run_params = {
+    params = {
         'data_date': dt.date.today()
     }
-    payload, params = extractor.process(params=run_params)
-
-    test_result = SourceDataExtractor._test_run()
-
-    csv_data = pd.read_csv(io.BytesIO(payload))
-    print(csv_data)
-    pass
+    payload, params = extractor.process(params=params)
+    print(payload)
