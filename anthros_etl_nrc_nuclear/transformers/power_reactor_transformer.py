@@ -20,10 +20,9 @@ class NRCNuclearReactorTransformer(DataTransformer):
         df['ForecasterId'] = 'NRC'
         df['UoMId'] = 'MWh'
         df['TimezoneId'] = 'US/Central'
-        df['LocalIdOrigin'] = 'US'
+        df['LocationIdOrigin'] = 'USA'
 
-        df = df.rename(columns={'Component Type':'ValueKey',
-                           'Name':'LocationIdOrigin'})
+        df = df.rename(columns={'Power':'ValueKey'})
         
         # set LocationIdDestination to be the same as LocationIdOrigin
         df['LocationIdDestination'] = df['LocationIdOrigin']

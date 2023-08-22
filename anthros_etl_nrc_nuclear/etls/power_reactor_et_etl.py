@@ -13,22 +13,15 @@ from anthros_etl.transformers.bytes_to_df_transformer import BytesCSVToDataFrame
 from anthros_etl.transformers.df_to_energytools_df_transformer import DataFrameToEnergyToolsDataFrameDataTransformer
 from anthros_etl.transformers.tsdb_set_meta_ids_transformer import TSDBSetMetaIdsTransformer
 
-NYISO_REAL_TIME_LBMP_TO_ENERGYTOOLS_DF_ETL = Pipeline([
+NRC_NUCLEAR_REACTOR_STATUS_TO_ENERGYTOOLS_DF_ETL = Pipeline([
                                                 NRCNuclearReactorExtractor(),
                                                 BytesCSVToDataFrameDataTransformer(),
                                                 DataFrameToEnergyToolsDataFrameDataTransformer()
                                                  ])
 
-
-NYISO_REAL_TIME_LBMP_ENERGYTOOLS_DF_TO_TSDB_DF = Pipeline([NRCNuclearReactorTransformer(),
-                                                           TSDBSetMetaIdsTransformer()])
-
-
-NYISO_REAL_TIME_LBMP_TO_TSDB_DF = NYISO_REAL_TIME_LBMP_TO_ENERGYTOOLS_DF_ETL + NYISO_REAL_TIME_LBMP_ENERGYTOOLS_DF_TO_TSDB_DF #+ [TimeSeriesSpotTableLoader(process_name = 'NYISO_MARKET_LBMP')]
-
 if __name__ == '__main__': 
     import sys
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-    etl_pl = NYISO_REAL_TIME_LBMP_TO_ENERGYTOOLS_DF_ETL
+    etl_pl = NRC_NUCLEAR_REACTOR_STATUS_TO_ENERGYTOOLS_DF_ETL
     
     payload, params = etl_pl.process(payload=None, params={})

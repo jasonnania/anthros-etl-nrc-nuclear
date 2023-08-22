@@ -4,14 +4,14 @@ import tempfile
 import datetime as dt
 
 from anthros_etl.loaders.timeseries_spot_loader import TimeSeriesSpotTableDataLoader
-from anthros_etl_nrc_nuclear.etls.power_reactor_etl import NYISO_REAL_TIME_LBMP_TO_TSDB_DF as base_pl
+from anthros_etl_nrc_nuclear.etls.power_reactor_et_etl import NRC_NUCLEAR_REACTOR_STATUS_TO_ENERGYTOOLS_DF_ETL as base_pl
 from anthros_etl.loaders.timeseries_spot_loader import TimeSeriesSpotTableDataLoader
 from anthros_etl.inserters.bcp_sql_server_table_inserter import TableInserterBCPInsertSQLServer
 
 logger = logging.getLogger(__name__)
 
 def get_etl_pipeline():
-    loader = TimeSeriesSpotTableDataLoader(process_name='NRC_POWER_REACTOR_ETL',
+    loader = TimeSeriesSpotTableDataLoader(process_name='NRC_POWER_REACTOR_ET_ETL',
                                            inserter=TableInserterBCPInsertSQLServer(data_dir=tempfile.gettempdir())
                                            )
     pl = base_pl + [loader]
