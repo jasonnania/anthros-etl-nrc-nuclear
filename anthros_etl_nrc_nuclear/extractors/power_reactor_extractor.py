@@ -99,9 +99,7 @@ class NRCNuclearReactorExtractor(HTTPExtractor):
             }
             df = pd.DataFrame(data)
             
-            csv_bytes = io.BytesIO()
-            df.to_csv(csv_bytes, index=False)
-            csv_bytes.seek(0)
+            csv_bytes = df.to_csv(index=False).encode('utf-8')
             
             payload = csv_bytes
             
@@ -117,4 +115,3 @@ if __name__ == '__main__':
         'data_date': dt.date.today()
     }
     payload, params = extractor.process(params=params)
-    print(payload)

@@ -19,8 +19,6 @@ NYISO_REAL_TIME_LBMP_TO_ENERGYTOOLS_DF_ETL = Pipeline([
                                                 DataFrameToEnergyToolsDataFrameDataTransformer()
                                                  ])
 
-print(NYISO_REAL_TIME_LBMP_TO_ENERGYTOOLS_DF_ETL)
-
 
 NYISO_REAL_TIME_LBMP_ENERGYTOOLS_DF_TO_TSDB_DF = Pipeline([NRCNuclearReactorTransformer(),
                                                            TSDBSetMetaIdsTransformer()])
@@ -31,6 +29,6 @@ NYISO_REAL_TIME_LBMP_TO_TSDB_DF = NYISO_REAL_TIME_LBMP_TO_ENERGYTOOLS_DF_ETL + N
 if __name__ == '__main__': 
     import sys
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-    etl_pl = NYISO_REAL_TIME_LBMP_TO_TSDB_DF
+    etl_pl = NYISO_REAL_TIME_LBMP_TO_ENERGYTOOLS_DF_ETL
     
-    payload, params = etl_pl.process(payload=None, params={}) 
+    payload, params = etl_pl.process(payload=None, params={})
