@@ -6,7 +6,7 @@ import pytz
 from anthros_etl.data_transformer import DataTransformer
 
 
-class NRCNuclearReactorTransformer(DataTransformer):
+class NRCPowerReactorTransformer(DataTransformer):
     
     def process_impl(self, payload: Any, params: dict) -> tuple[Any, dict]: 
         df = payload

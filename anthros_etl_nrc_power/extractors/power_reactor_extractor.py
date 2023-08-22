@@ -7,7 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-class NRCNuclearReactorExtractor(HTTPExtractor):
+class NRCPowerReactorExtractor(HTTPExtractor):
     logger = logging.getLogger(__name__)
 
     def __init__(self) -> None:
@@ -110,7 +110,7 @@ class NRCNuclearReactorExtractor(HTTPExtractor):
 
 
 if __name__ == '__main__':
-    extractor = NRCNuclearReactorExtractor()
+    extractor = NRCPowerReactorExtractor()
     params = {
         'data_date': dt.date.today()
     }

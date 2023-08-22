@@ -8,4 +8,4 @@ dynamic = ["version", "dependencies", "readme"]
 
 [tool.setuptools_scm]
 local_scheme = "no-local-version"
-write_to = "anthros_etl_nrc_nuclear/_version.py"
+write_to = "anthros_etl_nrc_power/_version.py"
