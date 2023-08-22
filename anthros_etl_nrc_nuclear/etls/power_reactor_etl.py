@@ -19,6 +19,8 @@ NYISO_REAL_TIME_LBMP_TO_ENERGYTOOLS_DF_ETL = Pipeline([
                                                 DataFrameToEnergyToolsDataFrameDataTransformer()
                                                  ])
 
+print(NYISO_REAL_TIME_LBMP_TO_ENERGYTOOLS_DF_ETL)
+
 
 NYISO_REAL_TIME_LBMP_ENERGYTOOLS_DF_TO_TSDB_DF = Pipeline([NRCNuclearReactorTransformer(),
                                                            TSDBSetMetaIdsTransformer()])
